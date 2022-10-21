@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base2.c                                  :+:      :+:    :+:   */
+/*   ft_printaddress.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvasseur <jvasseur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:03:48 by jvasseur          #+#    #+#             */
-/*   Updated: 2022/10/21 15:47:59 by jvasseur         ###   ########.fr       */
+/*   Created: 2022/10/21 17:08:49 by jvasseur          #+#    #+#             */
+/*   Updated: 2022/10/21 18:03:37 by jvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "ft_printf.h"
 
-int	check1(char *base)
+int	check3(char *base)
 {
 	int		i;
 	int		j;
@@ -36,24 +37,42 @@ int	check1(char *base)
 	return (1);
 }
 
-int	ft_putnbr_base2(unsigned int nbr, char *base, int cpt)
+
+int	ft_putnbr_base3(unsigned long long nbr, char *base)
 {
-	unsigned int	nbtemp;
-	unsigned int	i;
-	
-	i = 0;
-	if (check1(base) == 0)
-		return (1);
+	unsigned long long nbtemp;
+	unsigned long long i;
+    unsigned long long cpt;
+
+    cpt = 0;
+	i = 16;
+	if (check3(base) == 0)
+		return (0);
 	nbtemp = 0;
-	while (base[i])
-		i++;
 	if (nbr < i)
-        cpt += ft_putchar(base[nbr % i]);
+		cpt += ft_putchar(base[nbr % i]);
 	else
 	{
-		ft_putnbr_base2(nbr / i, base, cpt);
+		ft_putnbr_base3(nbr / i, base);
 		nbtemp = nbr % i;
 		cpt += ft_putchar(base[nbtemp]);
 	}
+	return (cpt);
+}
+
+int	ft_printaddress(void *nb)
+{
+    int cpt;
+    unsigned long long nbr;
+
+    cpt = 0;
+    nbr = (unsigned long long) nb;
+	if ( nbr == 0)
+        cpt += write(1, "(nil)" , 5);
+    else 
+    {
+        cpt += write(1, "0x", 2);
+        cpt += ft_putnbr_base3(nbr, "123456789abcdef");
+    }
 	return (cpt);
 }

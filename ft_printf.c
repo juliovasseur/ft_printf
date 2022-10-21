@@ -6,11 +6,12 @@
 /*   By: jvasseur <jvasseur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:59:59 by julio             #+#    #+#             */
-/*   Updated: 2022/10/20 17:31:24 by jvasseur         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:08:16 by jvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	ft_printf(const char *str, ...)
 {
@@ -30,23 +31,30 @@ int	ft_printf(const char *str, ...)
             if (str[i + 1] == 'c')
                 cpt += ft_putchar((char)va_arg(arg, int));
             if (str[i + 1] == 's')
-                cpt += ft_putstr((char *)va_arg(arg, char *));
+                cpt += ft_putstr(va_arg(arg, char *));
             if (str[i + 1] == 'd')
-                cpt += ft_putnbr_base((int)va_arg(arg, int), "0123456789", cpt);
+                cpt += ft_putnbr_base((long long)va_arg(arg, int), "0123456789", cpt);
             if (str[i + 1] == 'i')
-                cpt += ft_putnbr_base((int)va_arg(arg, int), "0123456789", cpt);
+                cpt += ft_putnbr_base((long long)va_arg(arg, int), "0123456789", cpt);
             if (str[i + 1] == 'u')
                 cpt += ft_putnbr_base2((unsigned int)va_arg(arg, int), "0123456789", cpt);
             if (str[i + 1] == 'x')
-                cpt += ft_putnbr_base((int)va_arg(arg, int), "0123456789abcdef", cpt);
+                cpt += ft_putnbr_base((unsigned int)va_arg(arg, unsigned int), "0123456789abcdef", cpt);
 			if (str[i + 1] == 'X')
-                cpt += ft_putnbr_base((int)va_arg(arg, int), "0123456789ABCDEF", cpt);
+                cpt += ft_putnbr_base((unsigned int)va_arg(arg, unsigned int), "0123456789ABCDEF", cpt);
+            if (str[i + 1] == 'p')
+                cpt += ft_printaddress(va_arg(arg, void *));
 			if (str[i + 1] == '%')
-                cpt += ft_putchar((char)va_arg(arg, int));
+                cpt += ft_putchar(va_arg(arg, int));
             i++;
         }
         i++;
     }
     va_end(arg);
     return (cpt);
+}
+
+int main()
+{
+    ft_printf("%p", 1);
 }

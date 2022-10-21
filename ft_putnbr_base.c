@@ -6,7 +6,7 @@
 /*   By: jvasseur <jvasseur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:22:05 by jvasseur          #+#    #+#             */
-/*   Updated: 2022/10/20 16:33:20 by jvasseur         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:55:07 by jvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,37 +36,28 @@ int	check(char *base)
 	return (1);
 }
 
-void	check2(void)
+int	ft_putnbr_base(long long nbr, char *base, int cpt)
 {
-	write(1, "2147483648", 10);
-}
-
-int	ft_putnbr_base(int nbr, char *base, int cpt)
-{
-	int	nbtemp;
-	int	i;
+	long int nbtemp;
+	long int	i;
 
 	i = 0;
 	if (check(base) == 0)
-		return (1);
+		return (0);
 	nbtemp = 0;
 	if (nbr < 0)
 	{
-		ft_putchar('-');
-		if (nbr == -2147483648)
-			check2();
-		else
-			nbr = -nbr;
+		nbr = -1 * nbr;
 	}
 	while (base[i])
 		i++;
 	if (nbr < i)
-        cpt += ft_putchar(base[nbr % i]);
+		cpt += ft_putchar(base[nbr % i]);
 	else
 	{
-		cpt += ft_putnbr_base(nbr / i, base, cpt);
+		ft_putnbr_base(nbr / i, base, cpt);
 		nbtemp = nbr % i;
-		ft_putchar(base[nbtemp]);
+		cpt += ft_putchar(base[nbtemp]);
 	}
 	return (cpt);
 }
