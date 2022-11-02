@@ -6,28 +6,27 @@
 /*   By: julio <julio@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:59:59 by julio             #+#    #+#             */
-/*   Updated: 2022/10/22 04:20:14 by julio            ###   ########.fr       */
+/*   Updated: 2022/11/02 11:12:39 by julio            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ft_form(va_list arg, const char form)
 {
 	int	ct;
 
 	ct = 0;
-	if (form == 'c') /// ok 
+	if (form == 'c')
 		ct += ft_putchar((char)va_arg(arg, int));
-	else if (form == 's') /// ok
+	else if (form == 's')
 		ct += ft_putstr(va_arg(arg, char *));
 	else if (form == 'd') 
-		ct += ft_putnbr((long long)va_arg(arg, int), ct);
-    	else if (form == 'i')
-		ct += ft_putnbr((long long)va_arg(arg, int), ct);
+		ct += ft_putnbr((int)va_arg(arg, int), ct);
+    else if (form == 'i')
+		ct += ft_putnbr((int)va_arg(arg, int), ct);
 	else if (form == 'u')
-		ct += ft_putnbr2((unsigned int)va_arg(arg, unsigned int), "0123456789", ct);
+		ct += ft_putnbr2((unsigned int)va_arg(arg, unsigned int), ct);
 	else if (form == 'x')
 		ct += ft_putnbr_base((unsigned int)va_arg(arg, unsigned int), "0123456789abcdef", ct);
     else if (form == 'X')

@@ -5,25 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: julio <julio@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 04:07:34 by julio             #+#    #+#             */
-/*   Updated: 2022/10/22 04:21:23 by julio            ###   ########.fr       */
+/*   Created: 2022/11/02 10:40:07 by julio             #+#    #+#             */
+/*   Updated: 2022/11/02 11:14:13 by julio            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr2(int nb, int ct)
+int ft_putnbr2(unsigned int nb, int ct)
 {
-	if (nb < 0)
-		nb *= -1;
-	if (nb >= 10)
-	{
-		ct += ft_putnbr2(nb / 10, ct);
-		ft_putnbr2(nb % 10, ct);
-	}
-	else
-	{
-		ct += ft_putchar2(nb + 48);
-	}
+    if (nb > 0 && nb < 10 )
+        ct += ft_putchar(nb + '0');
+    else
+    {
+        ct += ft_putnbr2(nb / 10, ct);
+        ft_putnbr2(nb % 10, ct);
+    }
     return (ct);
 }
