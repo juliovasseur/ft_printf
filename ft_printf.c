@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio <julio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jvasseur <jvasseur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:59:59 by julio             #+#    #+#             */
-/*   Updated: 2022/11/02 11:12:39 by julio            ###   ########.fr       */
+/*   Updated: 2022/11/02 17:10:55 by jvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ int	ft_form(va_list arg, const char form)
 	else if (form == 's')
 		ct += ft_putstr(va_arg(arg, char *));
 	else if (form == 'd') 
-		ct += ft_putnbr((int)va_arg(arg, int), ct);
+		ct += ft_putnbr(va_arg(arg, int));
     else if (form == 'i')
-		ct += ft_putnbr((int)va_arg(arg, int), ct);
+		ct += ft_putnbr(va_arg(arg, int));
 	else if (form == 'u')
-		ct += ft_putnbr2((unsigned int)va_arg(arg, unsigned int), ct);
+		ct += ft_putnbr2((unsigned int)va_arg(arg, unsigned int));
 	else if (form == 'x')
-		ct += ft_putnbr_base((unsigned int)va_arg(arg, unsigned int), "0123456789abcdef", ct);
+		ct += ft_putnbr_base((unsigned)va_arg(arg, unsigned int), "0123456789abcdef");
     else if (form == 'X')
-        ct += ft_putnbr_base((unsigned int)va_arg(arg, unsigned int), "0123456789ABCDEF", ct);
-	else if (form == '%')
-		ct += ft_putchar(va_arg(arg, int));
-    else if (form == 'p')
+        ct += ft_putnbr_base((unsigned)va_arg(arg, unsigned int), "0123456789ABCDEF");
+	else if (form == 'p')
 		ct += ft_printaddress(va_arg(arg, void *));
+	else if (form == '%')
+		ct += ft_printpct();
 	return (ct);
 }
 
@@ -47,6 +47,8 @@ int	ft_printf(const char *str, ...)
 	i = 0;
 	print_len = 0;
 	va_start(arg, str);
+	if (str == NULL)
+		return (-1);
 	while (str[i])
 	{
 		if (str[i] == '%')

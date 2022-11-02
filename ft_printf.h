@@ -11,6 +11,10 @@
 int ft_printf(const char *str, ...);
 int	ft_putstr(char *s);
 int ft_putchar(char c);
-int ft_putnbr(int nb, int ct);
+int ft_putnbr(long long nb);
+int ft_putnbr2(unsigned nb);
+int	ft_putnbr_base(unsigned nbr, char *base);
+int ft_printpct(void);
+int	ft_printaddress(void *nb);
 
 #endif

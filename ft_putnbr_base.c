@@ -6,11 +6,12 @@
 /*   By: jvasseur <jvasseur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 15:22:05 by jvasseur          #+#    #+#             */
-/*   Updated: 2022/10/21 15:55:07 by jvasseur         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:53:16 by jvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	check(char *base)
 {
@@ -36,28 +37,26 @@ int	check(char *base)
 	return (1);
 }
 
-int	ft_putnbr_base(long long nbr, char *base, int cpt)
+int	ft_putnbr_base(unsigned nbr, char *base)
 {
 	long int nbtemp;
 	long int	i;
+	int ct;
 
+	ct = 0;
 	i = 0;
 	if (check(base) == 0)
 		return (0);
 	nbtemp = 0;
-	if (nbr < 0)
-	{
-		nbr = -1 * nbr;
-	}
 	while (base[i])
 		i++;
 	if (nbr < i)
-		cpt += ft_putchar(base[nbr % i]);
+		ct += ft_putchar(base[nbr % i]);
 	else
 	{
-		ft_putnbr_base(nbr / i, base, cpt);
+		ct += ft_putnbr_base(nbr / i, base);
 		nbtemp = nbr % i;
-		cpt += ft_putchar(base[nbtemp]);
+		ct += ft_putchar(base[nbtemp]);
 	}
-	return (cpt);
+	return (ct);
 }

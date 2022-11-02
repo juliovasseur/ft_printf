@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr2.c                                       :+:      :+:    :+:   */
+/*   ft_printpct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvasseur <jvasseur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 10:40:07 by julio             #+#    #+#             */
-/*   Updated: 2022/11/02 15:13:49 by jvasseur         ###   ########.fr       */
+/*   Created: 2022/11/02 16:26:10 by jvasseur          #+#    #+#             */
+/*   Updated: 2022/11/02 16:31:37 by jvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_putnbr2(unsigned nb)
+int ft_printpct(void)
 {
-    int ct;
-
-    ct = 0;
-    if (nb < 10 )
-        ct += ft_putchar(nb + 48);    
-    else
-    {
-        ct += ft_putnbr2(nb / 10);
-        ct += ft_putchar(nb % 10 + 48);
-    }
-    return (ct);
+    write(1, "%", 1);
+    return(1);
 }
